@@ -36,7 +36,7 @@ CREATE TABLE employee(
 -- account table
 CREATE TABLE account(
     account_no SERIAL PRIMARY KEY,
-    account_type VARCHAR(25) NOT NULL check(account_type = 'savings' OR account_type = 'checkings'),
+    account_type VARCHAR(25) NOT NULL check(account_type = 'savings' OR account_type = 'checkings' OR account_type = 'loan'),
     balance NUMERIC(12, 2) NOT NULL check (balance >= 500.0),
     branch_id INT NOT NULL,
     CONSTRAINT branch_fk FOREIGN KEY (branch_id) REFERENCES branch (branch_id) ON UPDATE CASCADE ON DELETE CASCADE
@@ -705,6 +705,29 @@ BEGIN
 END;
 $create_view_cust_details$ LANGUAGE plpgsql
 SECURITY DEFINER;
+
+-- view for loan payment details
+CREATE OR REPLACE create_view_loan_payments(c_name VARCHAR(50), uname VARCHAR(50), pword VARCHAR(50))
+RETURNS void
+AS $$
+DECLARE
+    log_id INT;
+    c_id INT:
+BEGIN
+    IF EXISTS(SELECT * FROM ) THEN
+        SELECT login_id INTO log_id FROM access WHERE username = uname and password = pword;
+        SELECT cust_id into c_id from customer where login_id = log_id;
+        CREATE OR REPLACE VIEW view_for_loanpayments as (select * from (loan natural JOIN payment) where loan_id = (SELECT loan_id FROM customer_loan WHERE cust_id = c_id) );
+        GRANT select on view_cust_details to c_name;
+        RAISE NOTICE 'Temporary view called "create_view_loan_payments" for user : % has been created!', c_name;
+    ELSE
+       RAISE NOTICE 'Wrong user name or password!';
+    END IF;
+END;
+$$ LANGUAGE plpgsql
+SECURITY DEFINER;
+
+
 
 -- think of any places where we can use views.
 -- for indexes, we have to make sample queries and add indexes on attributes that improve performance.
