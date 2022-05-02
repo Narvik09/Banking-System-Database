@@ -1,0 +1,74 @@
+--------------------------------------- Bank data ---------------------------------------
+
+INSERT INTO bank (bank_name, bank_address) VALUES ('Canara Bank', 'Gyan Bhavan, 8 Kumatha Street, Ballard Estate, Fort, Mumbai, Maharashtra');
+
+--------------------------------------- Branch data ---------------------------------------
+
+INSERT INTO branch (branch_name, branch_address, bank_id) VALUES ('Mumbai Branch', 'Gyan Bhavan, 8 Kumatha Street, Ballard Estate, Fort, Mumbai, Maharashtra', 1), ('Kolkata Branch', 'Raja Dinendra Street, Shyambazar, Kolkata, West Bengal', 1), ('Chennai Branch', '1st Link Street,nehru Nagar, Kottivakkam, Chennai, Tamil Nadu', 1);
+
+--------------------------------------- Adding employees ---------------------------------------
+
+CALL add_employee('Tanu Gadhavi', 'Shukla Chawl, Nirmal Nagar, Behind Bldg No 7, Bandra, Mumbai, Maharashtra', 50000, '1995-07-17', 1);
+CALL add_employee('Deepesh Krishna', 'Neelgiri Indl Estate, Tj Road, Behind Swan Mills, Sewri, Mumbai, Maharashtra', 60000, '1990-03-25', 1);
+CALL add_employee('Prem Mishra', 'Govindappa Naicken Street Parrys, Chennai, Tamil Nadu', 35000, '1999-02-20', 1);
+CALL add_employee('Nirmala Khan', 'Sri Giraj Complex, Koti, Kolkata, West Bengal', 70000, '1980-08-15', 1);
+CALL add_employee('Avinash Patil', 'Mosque Road, Frazer Town, Kolkata, West Bengal', 45000, '1985-12-18', 1);
+
+--------------------------------------- Creating accounts ---------------------------------------
+
+CALL create_account('Shakti Rao', 'Gyan Bhavan, 8 Kumatha Street, Ballard Estate, Fort, Mumbai, Maharashtra', '1988-07-17', ARRAY['0405521805', '0222835146'], 'savings', 1, 1);
+CALL create_account('Nikita Korrapati', 'Raja Dinendra Street, Shyambazar, Kolkata, West Bengal', '1996-05-07', ARRAY['9525123130'], 'checkings', 3, 1);
+CALL create_account('Adalia Kendal', 'Tarun Bharat Soc, Sahar Road, Chakala, Andheri, Mumbai, Maharashtra', '1999-08-28', ARRAY['0222347045'], 'savings', 2, 1);
+CALL create_account('Vasant Chaudhry', 'Rajkamal Building, Sector 15, Krishi Bazaar, Mumbai, Maharashtra', '1973-03-15', ARRAY['0112332823'], 'checkings', 2, 1);
+
+--------------------------------------- Creating loan accounts ---------------------------------------
+
+CALL create_loan_account('Manoj Gowda', '3rd Avenue,Anand Nagar, XYZ Layout, Chennai, Tamil Nadu', '1965-09-05', ARRAY['3245435324'], 'loan', 1, 1, 100000, 'business', 4);
+
+--------------------------------------- Transactions ---------------------------------------
+
+CALL deposit_amount(1, 1000000, 'shakti', 'rao');
+CALL deposit_amount(2, 500000, 'nikita', 'korra');
+CALL deposit_amount(3, 250000, 'ada', 'ken');
+CALL deposit_amount(4, 300000, 'vasant', 'chau');
+CALL withdraw_amount(1, 10000, 'shakti', 'rao');
+CALL withdraw_amount(1, 20000, 'nikita', 'korra');
+CALL withdraw_amount(1, 5000, 'ada', 'ken');
+CALL transfer_amount(4, 3, 5000, 'vasant', 'chau');
+CALL transfer_amount(1, 2, 500, 'shakti', 'rao');
+
+--------------------------------------- Loan Payments ---------------------------------------
+
+CALL pay_loan(5, 1, 5000);
+CALL pay_loan(5, 1, 2300);
+
+--------------------------------------- Testing ---------------------------------------
+
+CALL create_account('Ajit Reddy', '1st Link Street,nehru Nagar, Kottivakkam, Chennai, Tamil Nadu', '1955-11-12', ARRAY['0112326998'], 'savings', 4, 1);
+-- update creds
+-- call deposit / withdraw / transfer
+
+CALL create_loan_account('Alex Rao', '40, MonicaPur, Gangtok - 596159', '1974-12-02', ARRAY['3238739623'], 'loan', 1, 1, 500000, 'home', 2.4);
+-- call loan payment
+
+--------------------------------------- Cleaning database ---------------------------------------
+DROP DATABASE banking_system;
+
+DROP ROLE "Tanu Gadhavi";
+DROP ROLE "Deepesh Krishna";
+DROP ROLE "Prem Mishra";
+DROP ROLE "Nirmala Khan";
+DROP ROLE "Avinash Patil";
+
+DROP ROLE "Shakti Rao";
+DROP ROLE "Nikita Korrapati";
+DROP ROLE "Adalia Kendal";
+DROP ROLE "Vasant Chaudhry";
+DROP ROLE "Ajit Reddy";
+
+DROP ROLE "Manoj Gowda";
+
+DROP ROLE branch_admin;
+DROP ROLE customer;
+DROP ROLE employee;
+
