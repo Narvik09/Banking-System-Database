@@ -1,6 +1,6 @@
 # Banking-System-Database
 
-A simple banking system database keeps tabs on the customers, employees, accounts registered, loans offered, the bank itself and its branches. Relations are used to account for basic banking tasks between these entities. These basic tasks would include offering loans, account transactions, repaying of loans, etc.
+A simple banking system database that keeps tabs on the customers, employees, accounts registered, loans offered, the bank itself and its branches. Relations are used to account for basic banking tasks between these entities. These basic tasks would include offering loans, account transactions, repaying of loans, etc.
 
 ### Documentation
 
